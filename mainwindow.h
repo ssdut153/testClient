@@ -16,6 +16,7 @@ public:
     ~MainWindow();
 
 private slots:
+    void readClient2();
     void on_pushButton_clicked();
 
 private:

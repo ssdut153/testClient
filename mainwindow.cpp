@@ -4,12 +4,21 @@
 
 QTcpSocket *client;
 
+void MainWindow::readClient2()
+{
+    QString str = client->readAll();
+    ui->textEdit_2->append(str);
+
+}
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
+    client = new QTcpSocket(this);
+    client->connectToHost(QHostAddress("103.13.222.121"), 6665);//103.13.222.121
+    connect(client, SIGNAL(readyRead()), this, SLOT(readClient2()));
 }
 
 MainWindow::~MainWindow()
@@ -24,8 +33,8 @@ void MainWindow::on_pushButton_clicked()
     std::string str = ui->textEdit->toPlainText().toStdString();
     const char* ch = str.c_str();
 
-    client = new QTcpSocket(this);
-    client->connectToHost(QHostAddress("127.0.0.1"), 6665);
     client->write(ch);
+
+    //client->close();
     ui->textEdit->setPlainText("");
 }
