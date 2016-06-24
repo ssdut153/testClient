@@ -50,3 +50,17 @@ void MainWindow::on_pushButton_clicked()
     //client->close();
     ui->textEdit->setPlainText("");
 }
+
+void MainWindow::on_pushButton_2_clicked()
+{
+    QString str;
+    QTextStream(&str)<<"{\"head\":\"login\",\"username\":\"testuser"<<ui->textEdit->toPlainText()<<"\",\"password\":\"testuser\"}";
+    client->write(str.toStdString().c_str());
+}
+
+void MainWindow::on_pushButton_3_clicked()
+{
+    QString str;
+    QTextStream(&str)<<"{\"head\":\"logout\",\"username\":\"testuser"<<ui->textEdit->toPlainText()<<"\"}";
+    client->write(str.toStdString().c_str());
+}
